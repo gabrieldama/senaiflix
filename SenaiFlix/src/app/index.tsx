@@ -1,86 +1,56 @@
-import {StyleSheet,Text,View,TouchableOpacity,Image} from 'react-native';
-import imagemCinema from "../../assets/images/tabIcons/cinema.jpg";
-import { useRouter } from 'expo-router'; 
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import fotoCinema from '../../assets/images/tabIcons/cinema.jpg';
+import { paleta } from '@/constants/paleta';
 
-export default function HomeScreen() {
-  const router = useRouter(); 
-
+export default function Inicio() {
   return (
-    <View style={styles.container}> 
-      <View style={styles.content}>
-        <Image source={imagemCinema} style={styles.imagePlaceholder} />
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>SENAIFLIX</Text>
-          <Text style={styles.subtitle}>
-            Filmes e séries ilimitados. Assista onde quiser.
-          </Text>
-        </View>
-        <TouchableOpacity
-          style={styles.button}
-          activeOpacity={0.8}
-          onPress={() => router.push('/catalogo')}
-        >
-          <Text style={styles.buttonText}>Entrar</Text>
-          <Text style={styles.buttonArrow}>→</Text>
-        </TouchableOpacity>
+    <View style={s.tela}>
+      <Image source={fotoCinema} style={s.foto} />
+      <View style={s.textos}>
+        <Text style={s.marca}>SENAIFLIX</Text>
+        <Text style={s.slogan}>Filmes e séries ilimitados. Assista onde quiser.</Text>
       </View>
+      <Pressable
+        style={({ pressed }) => [s.entrar, pressed && { opacity: 0.8 }]}
+        onPress={() => router.push('/catalogo')}
+      >
+        <Text style={s.entrarTxt}>Entrar</Text>
+        <Text style={s.entrarSeta}>→</Text>
+      </Pressable>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
+const s = StyleSheet.create({
+  tela: {
     flex: 1,
-    backgroundColor: '#F2F2F2',
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 20,
+    backgroundColor: paleta.fundo,
+    justifyContent: 'space-between',
     paddingTop: 10,
     paddingBottom: 20,
-    justifyContent: 'space-between',
+    paddingHorizontal: 20,
   },
-  imagePlaceholder: {
+  foto: {
     width: '100%',
     height: '63%',
-    backgroundColor: '#EBEBEB',
-    borderWidth: 2,
-    borderColor: '#B0B0B0',
     borderRadius: 2,
+    borderWidth: 2,
+    borderColor: paleta.bordaForte,
+    backgroundColor: paleta.superficie,
   },
-  textContainer: {
-    marginVertical: 10,
-  },
-  title: {
-    fontSize: 44,
-    fontWeight: '900',
-    color: '#E52312',
-    letterSpacing: -1,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 18,
-    fontWeight: '500',
-    color: '#111111',
-    lineHeight: 26,
-  },
-  button: {
-    backgroundColor: '#E52312',
+  textos: { marginVertical: 10 },
+  marca: { fontSize: 44, fontWeight: '900', letterSpacing: -1, color: paleta.destaque, marginBottom: 8 },
+  slogan: { fontSize: 18, lineHeight: 26, fontWeight: '500', color: paleta.texto },
+  entrar: {
     height: 56,
     borderRadius: 2,
+    paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
+    backgroundColor: paleta.destaque,
   },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 20,
-    fontWeight: '700',
-  },
-  buttonArrow: {
-    color: '#FFFFFF',
-    fontSize: 22,
-    fontWeight: '600',
-  },
+  entrarTxt: { fontSize: 20, fontWeight: '700', color: paleta.branco },
+  entrarSeta: { fontSize: 22, fontWeight: '600', color: paleta.branco },
 });
